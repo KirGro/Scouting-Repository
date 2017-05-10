@@ -160,6 +160,11 @@ public class TeamDataBase {
 	}
 	
 	
+	/*
+	 * Method for finding the position of a team in the list of teams
+	 * Requirements: teamNumber (int)
+	 * Returns: position (int)
+	 */
 	public int getTeamPosition(int teamNumber) throws CouldNotFindException {
 		for(int x=0;x<teams.size();x++) {
 			if (teams.get(x).getTeamNumber()==teamNumber) return x;
