@@ -1,9 +1,10 @@
 package teamAPI;
 
+import java.io.Serializable;
 import java.util.*;
 import teamAPI.teamExceptionAPI.*;
 
-public class TeamDataBase {
+public class TeamDataBase implements Serializable{
 	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 	
 	private ArrayList<Team> teams;			//Stores all the Team references
@@ -129,6 +130,7 @@ public class TeamDataBase {
 	}
 	
 	
+	
 	/*
 	 * Method for returning a Team to the database
 	 * Requires: team number (int)
@@ -158,6 +160,7 @@ public class TeamDataBase {
 		}
 		throw new CouldNotFindException();
 	}
+	
 	
 	
 	/*
