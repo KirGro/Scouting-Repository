@@ -1,11 +1,11 @@
 To Think About:
 I) Format
-	1) Constructor using array
-	2) Returning an array containing the statistics
-	3) Using a copy of the arraylist within format when returning
+	1) Constructor using array	
+	2) Returning an array containing the statistics					
+	3) Using a copy of the arraylist within format when returning	//Is Possible
 II) 
 GENERAL
-	1) Serializing everything
+	1) Serializing everything		//Done
 	2) Testing out serialization
-	3) Polishing Clonable methods
+	3) Polishing Clonable methods	//Should be done
 	4) Testing???

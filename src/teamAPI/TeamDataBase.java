@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.*;
 import teamAPI.teamExceptionAPI.*;
 
-public class TeamDataBase implements Serializable{
+public class TeamDataBase implements Serializable, Clonable<TeamDataBase>{
 	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);
 	
 	private ArrayList<Team> teams;			//Stores all the Team references
@@ -214,6 +214,20 @@ public class TeamDataBase implements Serializable{
 			} catch (CouldNotFindException e) {
 				checkBeforeAddTeam(team);
 			}
+		}
+	}
+	
+	
+	/*
+	 * 
+	 */
+	@Override
+	public TeamDataBase clone() {
+		try {
+			ArrayList<Team> teamsTemp = new ArrayList<Team>(){{for(Team t:teams)add(t.clone());}};
+			return new TeamDataBase(year, pointsFormat, teamsTemp);
+		} catch (InvalidFormatException ife) {
+			return clone();
 		}
 	}
 }

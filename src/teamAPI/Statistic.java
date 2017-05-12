@@ -1,8 +1,9 @@
 package teamAPI;
 
+import java.io.Serializable;
 import teamAPI.teamExceptionAPI.*;
 
-public class Statistic implements Clonable<Statistic>{
+public class Statistic implements Serializable, Clonable<Statistic>{
 	
 	private String name;
 	private int data;

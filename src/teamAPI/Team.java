@@ -1,10 +1,10 @@
 package teamAPI;
 
-import java.util.*;
-
+import java.util.ArrayList;
+import java.io.Serializable;
 import teamAPI.teamExceptionAPI.*;
 
-public class Team implements Comparable<Team>, Clonable<Team>{
+public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	
 	private boolean autosortMatches = true;		//Determines whether or not to sort the matches automagically
 	private int teamNumber;						//Stores the teams number
@@ -153,7 +153,8 @@ public class Team implements Comparable<Team>, Clonable<Team>{
 	@Override
 	public Team clone() {
 		try {
-			Team clone = new Team(teamNumber, teamName);
+			ArrayList<MatchResult> matchesTemp = new ArrayList<MatchResult>(){{for(MatchResult mr:matches)add(mr.clone());}};
+			Team clone = new Team(teamNumber, teamName, matchesTemp);
 			return clone;
 		} 
 		catch(InvalidNameNumberException inne) {

@@ -1,9 +1,10 @@
 package teamAPI;
 
-import java.util.*;
+import java.io.Serializable;
+import java.util.ArrayList;
 import teamAPI.teamExceptionAPI.*;
 
-public class Format {	//Dual Purpose Class
+public class Format implements Serializable{	//Dual Purpose Class
 	/*
 	 * Formats for the competition's layout are stored so all classes can access them
 	 */
@@ -44,6 +45,21 @@ public class Format {	//Dual Purpose Class
 	 * Returns: statistics (ArrayList<Statistic>)
 	 */
 	public ArrayList<Statistic> getStatistics() {
+		return format;
+	}
+	
+	
+	
+	/*
+	 * Method for getting the format's statistics as a copy of the original if wanted
+	 * Requirements: copy (boolean)
+	 * Returns: statistics (ArrayList<Statistic>)
+	 */
+	public ArrayList<Statistic> getStatistics(boolean copy) {
+		if(copy) {
+			ArrayList<Statistic> copyOf = new ArrayList<Statistic>(){{for(Statistic s:format)add(s.clone());}};
+			return copyOf;
+		}
 		return format;
 	}
 	
