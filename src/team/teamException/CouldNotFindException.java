@@ -1,4 +1,4 @@
-package teamAPI.teamExceptionAPI;
+package team.teamException;
 
 public class CouldNotFindException extends Exception {
 	public CouldNotFindException() { super(); }

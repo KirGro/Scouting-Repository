@@ -1,8 +1,9 @@
-package teamAPI;
+package team;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import teamAPI.teamExceptionAPI.*;
+
+import team.teamException.*;
 
 public class Format implements Serializable{	//Dual Purpose Class
 	/*

@@ -1,8 +1,10 @@
-package teamAPI;
+package team;
 
 import java.util.ArrayList;
+
+import team.teamException.*;
+
 import java.io.Serializable;
-import teamAPI.teamExceptionAPI.*;
 
 public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	

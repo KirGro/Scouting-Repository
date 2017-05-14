@@ -1,4 +1,4 @@
-package teamArchiveAPI;
+package teamArchive;
 
 public class ArchivedTeam {
 

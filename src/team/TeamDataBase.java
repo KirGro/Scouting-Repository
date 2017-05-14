@@ -1,8 +1,9 @@
-package teamAPI;
+package team;
 
 import java.io.Serializable;
 import java.util.*;
-import teamAPI.teamExceptionAPI.*;
+
+import team.teamException.*;
 
 public class TeamDataBase implements Serializable, Clonable<TeamDataBase>{
 	private static final int CURRENT_YEAR = Calendar.getInstance().get(Calendar.YEAR);

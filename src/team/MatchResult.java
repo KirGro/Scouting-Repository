@@ -1,15 +1,20 @@
-package teamAPI;
+package team;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import teamAPI.teamExceptionAPI.*;
+import team.teamException.*;
 
 public class MatchResult implements Serializable, Comparable<MatchResult>, Clonable<MatchResult>{
-	private Statistic[] generalInfo;
-	private Statistic[] pointsInfo;
-	private Statistic[] penaltiesInfo;
+	private Statistic[] generalInfo;	//Stores the data (Statistic's) for general info
+	private Statistic[] pointsInfo;		//Stores the data (Statistic's) for points info
+	private Statistic[] penaltiesInfo;	//Stores the data (Statistic's) for penalties info
 	
+	
+	
+	/*
+	 * 
+	 */
 	public MatchResult(Statistic[] generalInfo, Statistic[] pointsInfo, Statistic[] penaltiesInfo) throws InvalidFormatException{
 		this.generalInfo = generalInfo;
 		this.pointsInfo = pointsInfo;
@@ -19,6 +24,13 @@ public class MatchResult implements Serializable, Comparable<MatchResult>, Clona
 		}
 	}
 	
+	
+	
+	/*
+	 * Method for returning user specified data from this match
+	 * Requirements: data name (String)
+	 * Returns: data (Statistic)
+	 */
 	public Statistic getDataAll(String dataName) throws CouldNotFindException {
 		for(Statistic stat:generalInfo) {
 			if(stat.getName().equals(dataName)) return stat.clone();
@@ -32,6 +44,12 @@ public class MatchResult implements Serializable, Comparable<MatchResult>, Clona
 		throw new CouldNotFindException();
 	}
 	
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Comparable#compareTo(java.lang.Object)
+	 */
 	@Override
 	public int compareTo(MatchResult o) {
 		try {
@@ -41,6 +59,12 @@ public class MatchResult implements Serializable, Comparable<MatchResult>, Clona
 		}
 	}
 	
+	
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.lang.Object#clone()
+	 */
 	@Override
 	public MatchResult clone() {
 		try {

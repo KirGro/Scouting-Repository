@@ -1,4 +1,4 @@
-package teamAPI.teamExceptionAPI;
+package team.teamException;
 
 public class InvalidFormatException extends Exception {
 	public InvalidFormatException() { super(); }

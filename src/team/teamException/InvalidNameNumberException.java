@@ -1,4 +1,4 @@
-package teamAPI.teamExceptionAPI;
+package team.teamException;
 
 public class InvalidNameNumberException extends Exception {
 	public InvalidNameNumberException() { super(); }

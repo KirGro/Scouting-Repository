@@ -1,18 +1,33 @@
-package teamAPI;
+package team;
 
 import java.io.Serializable;
-import teamAPI.teamExceptionAPI.*;
+
+import team.teamException.*;
 
 public class Statistic implements Serializable, Clonable<Statistic>{
 	
-	private String name;
-	private int data;
+	private String name;	//Stores the name of the data point
+	private int data;		//Stores the data for the data point
 	
+	
+	
+	/*
+	 * Constructor to *ONLY* be used when creating a format object
+	 * Requirements: name of statistic (String)
+	 */
 	public Statistic(String name) {
 		this.name = name;
 		data = -1;
 	}
 	
+	
+	
+	/*
+	 * Constructor for creating a data point
+	 * Requirements: name of data (String)
+	 * 				 data (int)
+	 * *See TeamDataBase for data codes*
+	 */
 	public Statistic(String name, int data) throws InvalidFormatException{
 		this.name = name;
 		this.data = data;

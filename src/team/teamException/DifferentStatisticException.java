@@ -1,4 +1,4 @@
-package teamAPI.teamExceptionAPI;
+package team.teamException;
 
 public class DifferentStatisticException extends Exception {
 	public DifferentStatisticException() { super(); }
