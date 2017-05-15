@@ -27,6 +27,80 @@ public class MatchResult implements Serializable, Comparable<MatchResult>, Clona
 	
 	
 	/*
+	 * WARNING: ONLY USE THIS METHOD FOR CHANGING WHAT THE FORMAT STORES
+	 * Method for getting one of user specified match set's reference to statistics
+	 * Requirements: name of set (String)
+	 * Returns: statistics (Statistic[])
+	 */
+	public Statistic[] getDataSetReference(String name) throws CouldNotFindException {
+		switch(name) {
+			case("generalInfo"): {
+				return generalInfo;
+			}
+			case("pointsInfo"): {
+				return pointsInfo;
+			}
+			case("penaltiesInfo"): {
+				return penaltiesInfo;
+			}
+		}
+		throw new CouldNotFindException();
+	}
+	
+	
+	
+	/*
+	 * Note: Should be used as default over getDataSetReference()
+	 * Method for getting one of user specified match set's reference to statistics
+	 * Requirements: name of set (String)
+	 * Returns: statistics (Statistic[])
+	 */
+	public Statistic[] getDataSetCopy(String name) throws CouldNotFindException {
+		Statistic[] copyOf;
+		switch(name) {
+			case("generalInfo"): {
+				copyOf = new Statistic[generalInfo.length];
+				for(int x=0;x<generalInfo.length;x++) {
+					copyOf[x] = generalInfo[x].clone();
+				}
+				return copyOf;
+			}
+			case("pointsInfo"): {
+				copyOf = new Statistic[pointsInfo.length];
+				for(int x=0;x<pointsInfo.length;x++) {
+					copyOf[x] = pointsInfo[x].clone();
+				}
+				return copyOf;			
+			}
+			case("penaltiesInfo"): {
+				copyOf = new Statistic[penaltiesInfo.length];
+				for(int x=0;x<penaltiesInfo.length;x++) {
+					copyOf[x] = penaltiesInfo[x].clone();
+				}
+				return copyOf;			
+			}
+		}
+		throw new CouldNotFindException();
+	}
+	
+	
+	
+	/*
+	 * Method for returning user specified data from this match
+	 * Requirements: format (Format)
+	 * 				 data name (String)
+	 * Returns: data (Statistic)
+	 */
+	public Statistic getData(Format form, String dataName) throws CouldNotFindException {
+		for(Statistic stat:form.getStatisticsReference()) {
+			if(stat.getName().equals(dataName)) return stat.clone();
+		}
+		throw new CouldNotFindException();
+	}
+	
+	
+	
+	/*
 	 * Method for returning user specified data from this match
 	 * Requirements: data name (String)
 	 * Returns: data (Statistic)

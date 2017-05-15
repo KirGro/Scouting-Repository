@@ -20,11 +20,7 @@ public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	 * Requirements: team number (int)
 	 */
 	public Team(int teamNumber) throws InvalidNameNumberException{
-		this.teamNumber = teamNumber;
-		
-		this.teamName = "No Team Name Set";
-		
-		matches = new ArrayList<MatchResult>();
+		this(teamNumber,"No Team Name Set",new ArrayList<MatchResult>());
 	}
 	
 	
@@ -35,11 +31,7 @@ public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	 * 				 matches (ArrayList<MatchResult>)
 	 */
 	public Team(int teamNumber, ArrayList<MatchResult> matches) throws InvalidNameNumberException{
-		this.teamNumber = teamNumber;
-		
-		this.teamName = "No Team Name Set";
-		
-		this.matches = matches;
+		this(teamNumber,"No Team Name Set",matches);
 	}
 	
 	
@@ -50,13 +42,7 @@ public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	 * 				 matches (ArrayList<MatchResult>)
 	 */
 	public Team(int teamNumber, String teamName) throws InvalidNameNumberException{
-		if(teamNumber>0)this.teamNumber = teamNumber;
-		else throw new InvalidNameNumberException();
-		
-		if(teamName.length()<=30)this.teamName = teamName;
-		else throw new InvalidNameNumberException();
-		
-		matches = new ArrayList<MatchResult>();
+		this(teamNumber,teamName,new ArrayList<MatchResult>());
 	}
 	
 	
@@ -130,12 +116,26 @@ public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	
 	
 	/*
+	 * WARNING: SHOULD ONLY BE USED WHEN NEEDING TO MODIFY THE MATCHES
 	 * Method for getting all of the team's matches
 	 * Returns: matches (ArrayList<MatchResult>)
 	 */
-	public ArrayList<MatchResult> getMatches() {
+	public ArrayList<MatchResult> getMatchesReference() {
 		return matches;
 	}
+	
+	
+	
+	/*
+	 * Note: To be used as the default over getMatchesReference;
+	 * Method for getting all of the team's matches
+	 * Returns: matches (ArrayList<MatchResult>)
+	 */
+	public ArrayList<MatchResult> getMatchesCopy() {
+		ArrayList<MatchResult> copyOf = new ArrayList<MatchResult>(){{for(MatchResult mr:matches)add(mr.clone());}};
+		return copyOf;
+	}
+	
 	
 	
 	/*

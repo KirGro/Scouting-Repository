@@ -133,11 +133,12 @@ public class TeamDataBase implements Serializable, Clonable<TeamDataBase>{
 	
 	
 	/*
+	 * WARNING: SHOULD ONLY BE USED TO MODIFY A TEAM'S DATA
 	 * Method for returning a Team to the database
 	 * Requires: team number (int)
 	 * Returns: team (Team)
 	 */
-	public Team getTeam(int teamNumber) throws CouldNotFindException{
+	public Team getTeamReference(int teamNumber) throws CouldNotFindException{
 		for(Team t:teams) {
 			if (t.getTeamNumber() == teamNumber) {
 				return t;
@@ -149,14 +150,49 @@ public class TeamDataBase implements Serializable, Clonable<TeamDataBase>{
 	
 	
 	/*
+	 * Note: Should be used as a default over getTeamReference()
 	 * Method for returning a Team to the database
 	 * Requires: team (Team)
 	 * Returns: team (Team)
 	 */
-	public Team getTeam(Team team) throws CouldNotFindException{
+	public Team getTeamCopy(int teamNumber) throws CouldNotFindException{
+		for(Team t:teams) {
+			if (t.getTeamNumber() == teamNumber) {
+				return t.clone();
+			}
+		}
+		throw new CouldNotFindException();
+	}
+	
+	
+	
+	/*
+	 * WARNING: SHOULD ONLY BE USED TO MODIFY A TEAM'S DATA
+	 * Method for returning a Team to the database
+	 * Requires: team (Team)
+	 * Returns: team (Team)
+	 */
+	public Team getTeamReference(Team team) throws CouldNotFindException{
 		for(Team t:teams) {
 			if (t.getTeamNumber() == team.getTeamNumber()) {
 				return t;
+			}
+		}
+		throw new CouldNotFindException();
+	}
+	
+	
+	
+	/*
+	 * Note: Should be used as a default over getTeamReference()
+	 * Method for returning a Team to the database
+	 * Requires: team (Team)
+	 * Returns: team (Team)
+	 */
+	public Team getTeamCopy(Team team) throws CouldNotFindException{
+		for(Team t:teams) {
+			if (t.getTeamNumber() == team.getTeamNumber()) {
+				return t.clone();
 			}
 		}
 		throw new CouldNotFindException();
@@ -206,10 +242,10 @@ public class TeamDataBase implements Serializable, Clonable<TeamDataBase>{
 			addTeam(team);
 			if(autosortTeams) teams.sort(null);
 		}
-		else if (team.getMatches()!=null) {
+		else if (team.getMatchesReference()!=null) {
 			try {
 				int place = getTeamPosition(team.getTeamNumber());
-				for(MatchResult mr:team.getMatches()) {
+				for(MatchResult mr:team.getMatchesReference()) {
 					teams.get(place).addMatch(mr);
 				}
 			} catch (CouldNotFindException e) {

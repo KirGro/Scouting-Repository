@@ -12,7 +12,8 @@ public class Statistic implements Serializable, Clonable<Statistic>{
 	
 	
 	/*
-	 * Constructor to *ONLY* be used when creating a format object
+	 * WARNING: ONLY TO BE USED FOR MAKING A GUIDE STATISTIC FOR A FORMAT
+	 * Constructor used to create a format object
 	 * Requirements: name of statistic (String)
 	 */
 	public Statistic(String name) {

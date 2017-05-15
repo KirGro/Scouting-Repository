@@ -16,7 +16,7 @@ public class Format implements Serializable{	//Dual Purpose Class
 	/*
 	 * Stores the user provided layout for this format object
 	 */
-	private ArrayList<Statistic> format;
+	private Statistic[] format;
 	
 	
 	
@@ -25,7 +25,7 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 * Requirements: statistics (ArrayList<Statistic>)
 	 */
 	public Format(ArrayList<Statistic> format) throws InvalidFormatException{
-		if (format.size()>0) this.format = format;
+		if (format.size()>0) format.toArray(this.format);
 		else throw new InvalidFormatException();
 	}
 	
@@ -36,32 +36,31 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 * Returns: size (int)
 	 */
 	public int getSize() {
-		return format.size();
+		return format.length;
 	}
 	
 	
 	
 	/*
-	 * Method for getting the format's statistics
+	 * WARNING: ONLY USE THIS METHOD FOR CHANGING WHAT THE FORMAT STORES
+	 * Method for getting the format's reference to statistics
 	 * Returns: statistics (ArrayList<Statistic>)
 	 */
-	public ArrayList<Statistic> getStatistics() {
+	public Statistic[] getStatisticsReference() {
 		return format;
 	}
 	
 	
 	
 	/*
-	 * Method for getting the format's statistics as a copy of the original if wanted
-	 * Requirements: copy (boolean)
+	 * Note: Should be used as default over getStatisticsReference()
+	 * Method for getting the format's statistics as a copy of the original
 	 * Returns: statistics (ArrayList<Statistic>)
 	 */
-	public ArrayList<Statistic> getStatistics(boolean copy) {
-		if(copy) {
-			ArrayList<Statistic> copyOf = new ArrayList<Statistic>(){{for(Statistic s:format)add(s.clone());}};
+	public Statistic[] getStatisticsCopy() {
+			Statistic[] copyOf = new Statistic[format.length];
+			for(int x=0;x<format.length;x++) {copyOf[x] = format[x].clone();}
 			return copyOf;
-		}
-		return format;
 	}
 	
 	
@@ -73,8 +72,8 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 * Returns: position (int)
 	 */
 	public static int getStatisticPosition(Format format, String dataName) throws CouldNotFindException {
-		for(int x=0;x<format.getStatistics().size();x++) {
-			if(format.getStatistics().get(x).getName().equals(dataName)) return x;
+		for(int x=0;x<format.getStatisticsReference().length;x++) {
+			if(format.getStatisticsReference()[x].getName().equals(dataName)) return x;
 		}
 		throw new CouldNotFindException();
 	}
@@ -83,12 +82,13 @@ public class Format implements Serializable{	//Dual Purpose Class
 	
 	/*
 	 * Method for checking if a statistic has a valid name based on the specified format
-	 * Requirements: statistic (Statistic)
+	 * Requirements: format (Format)
+	 * 				 statistic (Statistic)
 	 * Returns: is good (boolean) 
 	 */
-	public boolean isValidStatistic(Statistic stat) {
+	public boolean isValidStatistic(Format form, Statistic stat) {
 		boolean isGood = false;
-		for (Statistic s:format) {
+		for (Statistic s:form.getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
@@ -105,17 +105,17 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 */
 	public static boolean isAnyValidStatistic(Statistic stat) {
 		boolean isGood = false;
-		for (Statistic s:generalFormat.getStatistics()) {
+		for (Statistic s:generalFormat.getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
 		}
-		for (Statistic s:pointsFormat.getStatistics()) {
+		for (Statistic s:pointsFormat.getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
 		}
-		for (Statistic s:penaltiesFormat.getStatistics()) {
+		for (Statistic s:penaltiesFormat.getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
