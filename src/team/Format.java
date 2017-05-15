@@ -9,9 +9,9 @@ public class Format implements Serializable{	//Dual Purpose Class
 	/*
 	 * Formats for the competition's layout are stored so all classes can access them
 	 */
-	static Format generalFormat;
-	static Format pointsFormat;
-	static Format penaltiesFormat;
+	public static Format generalFormat;
+	public static Format pointsFormat;
+	public static Format penaltiesFormat;
 	
 	/*
 	 * Stores the user provided layout for this format object

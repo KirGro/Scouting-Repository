@@ -30,8 +30,8 @@ public class Team implements Serializable, Comparable<Team>, Clonable<Team>{
 	 * Requirements: team number (int)
 	 * 				 matches (ArrayList<MatchResult>)
 	 */
-	public Team(int teamNumber, ArrayList<MatchResult> matches) throws InvalidNameNumberException{
-		this(teamNumber,"No Team Name Set",matches);
+	public Team(int teamNumber, ArrayList<MatchResult> arrayList) throws InvalidNameNumberException{
+		this(teamNumber,"No Team Name Set",arrayList);
 	}
 	
 	
