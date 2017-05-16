@@ -1,12 +1,11 @@
 package gui;
 
-import java.awt.CardLayout;
-import java.awt.Component;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
+import java.awt.*;
 import java.awt.event.*;
+import java.io.*;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class GUI extends JFrame implements ActionListener, WindowListener, WindowFocusListener , WindowStateListener{
@@ -28,6 +27,7 @@ public class GUI extends JFrame implements ActionListener, WindowListener, Windo
 	
 	public GUI(String s) {
 		super(s);
+		if(!s.equals("FAIL!!!")) createAndShowGUI();
 	}
 	
 	
@@ -36,12 +36,18 @@ public class GUI extends JFrame implements ActionListener, WindowListener, Windo
 		addWindowListener(this);
 		addWindowFocusListener(this);
 		addWindowStateListener(this);
-	    //gui.addComponentToPane(gui.getContentPane());
+	    addComponentToPane(getContentPane());
 	    //gui.setJMenuBar(menuBar);
 	    
 		setSize(430, 400);
 		setResizable(true);
 		setVisible(true);	
+	}
+	
+	
+	
+	private void addComponentToPane(Container con) {
+		
 	}
 	
 	
@@ -73,7 +79,16 @@ public class GUI extends JFrame implements ActionListener, WindowListener, Windo
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		
+		JOptionPane.showMessageDialog(this, "Press Okay to exit and save", "Exiting", JOptionPane.PLAIN_MESSAGE);
+		try {
+			ObjectOutputStream outStream = new ObjectOutputStream(new FileOutputStream(AutoGeneratingGUI.saves));
+			outStream.writeObject(AutoGeneratingGUI.tdb);
+			outStream.close();
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		System.exit(0);
 	}
 
 	@Override

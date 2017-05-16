@@ -25,7 +25,15 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 * Requirements: statistics (ArrayList<Statistic>)
 	 */
 	public Format(ArrayList<Statistic> format) throws InvalidFormatException{
-		if (format.size()>0) format.toArray(this.format);
+		System.out.println(format);
+		
+		if (format.size()>0) {
+			Statistic[] tform = new Statistic[format.size()];
+			for(int x=0;x<tform.length;x++) {
+				tform[x] = format.get(x);
+			}
+			this.format = tform;
+		}
 		else throw new InvalidFormatException();
 	}
 	

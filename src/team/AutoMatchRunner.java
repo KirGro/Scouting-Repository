@@ -1,8 +1,7 @@
-package runner;
+package team;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import team.*;
 import team.teamException.*;
 
 public class AutoMatchRunner implements Serializable{
