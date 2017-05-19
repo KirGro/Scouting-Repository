@@ -11,13 +11,13 @@ import team.*;
 import team.teamException.*;
 
 public class AutoGeneratingGUI {
-	private static int year = Calendar.getInstance().get(Calendar.YEAR);
+	static ArrayList<GUIStatistic> pointsFormatList = new ArrayList<GUIStatistic>(), generalFormatList = new ArrayList<GUIStatistic>(), penaltiesFormatList = new ArrayList<GUIStatistic>();
 	static TeamDataBase tdb;
+	static final File saves = new File("data//serialedSave.data"), prefs = new File("preferences.txt"); 
+	
+	private static int year = Calendar.getInstance().get(Calendar.YEAR);
 	private static GUI gui;
-	private final static File prefs = new File("preferences.txt");
-	static final File saves = new File("data//serialedSave.data"); 
-	private static ArrayList<GUIStatistic> formatList = new ArrayList<GUIStatistic>();
-	public static boolean restoring = false;
+	private static boolean restoring = false;
 	
 	public static void main(String[] args) {
 		readDataPrefs();
@@ -45,7 +45,10 @@ public class AutoGeneratingGUI {
 							while(ln.length()>0&&ln.charAt(0)!='-') {
 								Scanner lnscan = new Scanner(ln);
 								lnscan.useDelimiter("/");
-								formatList.add(new GUIStatistic(lnscan.next(),lnscan.nextInt(),lnscan.nextInt()));
+								String name = lnscan.next(), defall = "0";
+								int autoTele = lnscan.nextInt(), pos = lnscan.nextInt();
+								if (lnscan.hasNext()) {defall = lnscan.next();}
+								else {pointsFormatList.add(new GUIStatistic(name, autoTele, pos, defall));}
 								if(prefScan.hasNextLine()) ln = prefScan.nextLine();
 								else ln = "";
 							}
@@ -56,10 +59,46 @@ public class AutoGeneratingGUI {
 						}
 					} break;
 					case ("GeneralFormat"): {
-						System.out.println("Feature not support YET");
+						System.out.println("Found general format start");
+						if (prefScan.hasNextLine()) {
+							System.out.println("Starting Read");
+							ln = prefScan.nextLine();
+							while(ln.length()>0&&ln.charAt(0)!='-') {
+								Scanner lnscan = new Scanner(ln);
+								lnscan.useDelimiter("/");
+								String name = lnscan.next(), defall = "0";
+								int autoTele = lnscan.nextInt(), pos = lnscan.nextInt();
+								if (lnscan.hasNext()) {defall = lnscan.next();}
+								else {generalFormatList.add(new GUIStatistic(name, autoTele, pos, defall));}
+								if(prefScan.hasNextLine()) ln = prefScan.nextLine();
+								else ln = "";
+							}
+							System.out.println("Read Line");
+						}
+						else {
+							failAndError(-3);
+						}
 					} break;
 					case ("PenaltiesFormat"): {
-						System.out.println("Feature not support YET");
+						System.out.println("Found penalties format start");
+						if (prefScan.hasNextLine()) {
+							System.out.println("Starting Read");
+							ln = prefScan.nextLine();
+							while(ln.length()>0&&ln.charAt(0)!='-') {
+								Scanner lnscan = new Scanner(ln);
+								lnscan.useDelimiter("/");
+								String name = lnscan.next(), defall = "0";
+								int autoTele = lnscan.nextInt(), pos = lnscan.nextInt();
+								if (lnscan.hasNext()) {defall = lnscan.next();}
+								else {penaltiesFormatList.add(new GUIStatistic(name, autoTele, pos, defall));}
+								if(prefScan.hasNextLine()) ln = prefScan.nextLine();
+								else ln = "";
+							}
+							System.out.println("Read Line");
+						}
+						else {
+							failAndError(-3);
+						}
 					} break;
 					case ("Year"): {
 						if (prefScan.hasNextLine()) {
@@ -107,7 +146,9 @@ public class AutoGeneratingGUI {
 			}
 			else {
 				try {
-					tdb = new TeamDataBase(year, new Format(new ArrayList<Statistic>(){{for(GUIStatistic gs:formatList) add(gs.makeStat());}}));
+					tdb = new TeamDataBase(year, new Format(new ArrayList<Statistic>(){{for(GUIStatistic gs:pointsFormatList) add(gs.makeStat());}}));
+					if (generalFormatList.size()!=0) StaticData.setGeneralFormat(new Format(new ArrayList<Statistic>(){{for(GUIStatistic gs:generalFormatList)add(gs.makeStat());}})); 
+					if (penaltiesFormatList.size()!=0) StaticData.setPenaltiesFormat(new Format(new ArrayList<Statistic>(){{for(GUIStatistic gs:penaltiesFormatList)add(gs.makeStat());}})); 
 				} catch (InvalidFormatException ife) {
 					failAndError(-7);
 				}

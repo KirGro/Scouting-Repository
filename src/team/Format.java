@@ -6,12 +6,6 @@ import java.util.ArrayList;
 import team.teamException.*;
 
 public class Format implements Serializable{	//Dual Purpose Class
-	/*
-	 * Formats for the competition's layout are stored so all classes can access them
-	 */
-	public static Format generalFormat;
-	public static Format pointsFormat;
-	public static Format penaltiesFormat;
 	
 	/*
 	 * Stores the user provided layout for this format object
@@ -113,36 +107,22 @@ public class Format implements Serializable{	//Dual Purpose Class
 	 */
 	public static boolean isAnyValidStatistic(Statistic stat) {
 		boolean isGood = false;
-		for (Statistic s:generalFormat.getStatisticsReference()) {
+		for (Statistic s:StaticData.getGeneralFormat().getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
 		}
-		for (Statistic s:pointsFormat.getStatisticsReference()) {
+		for (Statistic s:StaticData.getPointsFormat().getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
 		}
-		for (Statistic s:penaltiesFormat.getStatisticsReference()) {
+		for (Statistic s:StaticData.getPenaltiesFormat().getStatisticsReference()) {
 			if(s.getName().equals(stat.getName())) {
 				isGood = true;
 			}
 		}
 		return isGood;
-	}
-	
-	
-	
-	/*
-	 * Method for setting the static formats
-	 * Requirements: general format (Format)
-	 * 				 points format (Format)
-	 * 				 penalties format (Format)
-	 */
-	public static void setFormat(Format generalFormat, Format pointsFormat, Format penaltiesFormat) {
-		Format.generalFormat = generalFormat;
-		Format.pointsFormat = pointsFormat;
-		Format.penaltiesFormat = penaltiesFormat;
 	}
 	
 }

@@ -10,7 +10,6 @@ import javax.swing.JPanel;
 
 public class GUI extends JFrame implements ActionListener, WindowListener, WindowFocusListener , WindowStateListener{
 	
-	
 	private static GridBagConstraints c = new GridBagConstraints();
 	
 	private static String preferencesDoc = "Preferences.txt", dataDoc = "", bigDataDoc = "", bigDataR2Doc = "", condesedName = "";

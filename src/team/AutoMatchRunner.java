@@ -25,10 +25,10 @@ public class AutoMatchRunner implements Serializable{
 	 */
 	public void autoAddMatch(MatchResult mr) throws InvalidNameNumberException {
 		try {
-			tdb.getTeamReference(mr.getData(Format.generalFormat, "Team Number").getData()).addMatch(mr);
+			tdb.getTeamReference(mr.getData(StaticData.getGeneralFormat(), "Team Number").getData()).addMatch(mr);
 		} catch (CouldNotFindException cnfe) {
 			try {
-				tdb.addTeam(new Team(mr.getData(Format.generalFormat, "Team Number").getData(),new ArrayList<MatchResult>(){{add(mr);}}));
+				tdb.addTeam(new Team(mr.getData(StaticData.getGeneralFormat(), "Team Number").getData(),new ArrayList<MatchResult>(){{add(mr);}}));
 			} catch (CouldNotFindException cnfe2) {
 				autoAddMatch(mr); 	//Recalls because its impossible for the code input string to be wrong
 			}

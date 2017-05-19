@@ -19,7 +19,7 @@ public class MatchResult implements Serializable, Comparable<MatchResult>, Clona
 		this.generalInfo = generalInfo;
 		this.pointsInfo = pointsInfo;
 		this.penaltiesInfo = penaltiesInfo;
-		if(this.generalInfo.length!=Format.generalFormat.getSize() || this.pointsInfo.length!=Format.pointsFormat.getSize() || this.penaltiesInfo.length!=Format.penaltiesFormat.getSize()) {
+		if(this.generalInfo.length!=StaticData.getGeneralFormat().getSize() || this.pointsInfo.length!=StaticData.getPointsFormat().getSize() || this.penaltiesInfo.length!=StaticData.getPenaltiesFormat().getSize()) {
 			throw new InvalidFormatException();
 		}
 	}
